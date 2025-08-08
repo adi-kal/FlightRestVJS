@@ -62,4 +62,8 @@
 ## Screenshot
 [![](https://github.com/adi-kal/FlightRestVJS/blob/master/src/main/resources/static/Screenshot%20from%202025-08-08%2019-27-15.png)]
 
+[![](https://github.com/adi-kal/FlightRestVJS/blob/master/src/main/resources/static/Screenshot%20from%202025-08-08%2019-36-03.png)]
+
+[![](https://github.com/adi-kal/FlightRestVJS/blob/master/src/main/resources/static/Screenshot%20from%202025-08-08%2019-28-52.png)]
+
 [![](https://github.com/adi-kal/FlightRestVJS/blob/master/src/main/resources/static/Screenshot%20from%202025-08-08%2019-28-46.png)]
