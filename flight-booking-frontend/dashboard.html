@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyWings - Book Your Next Adventure</title>
+    
+    <!-- Tailwind CSS for modern styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts for a clean look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Applying the Poppins font to the body */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f4f8;
+        }
+        
+        /* Custom styles for hero background */
+        .hero-section {
+            background-image: url('bg.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Transition effects for smoother interactions */
+        .card-hover {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        
+        .btn-hover {
+            transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        .btn-hover:hover {
+            transform: scale(1.05);
+        }
+
+        /* Hide sections by default for dynamic display */
+        .hidden-section {
+            display: none;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header and Navigation -->
+    <header class="bg-white/80 backdrop-blur-md shadow-md fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="#" class="text-2xl font-bold text-blue-600">SkyWings</a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Home</a>
+                    <a href="#" class="Udash text-gray-600 hover:text-blue-600 transition-colors">Dashboard</a>
+                    <a href="#" id="myBookingsBtn" class="text-gray-600 hover:text-blue-600 transition-colors">Flights</a>
+                    <!-- <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Deals</a>
+                    <a href="#" class="text-gray-600 hover:text-blue-600 transition-colors">Contact</a> -->
+                    <button id="logoutBtn" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Logout</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero-section h-[60vh] md:h-[80vh] flex items-center justify-center text-white relative">
+            <div class="absolute inset-0 bg-black/50"></div>
+            <div class="text-center z-10 p-4">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">Book Your Next Adventure</h1>
+                <p class="text-lg md:text-xl font-light drop-shadow-md">Find the best flights at the best prices</p>
+            </div>
+        </section>
+
+        <!-- Search Flights Section -->
+        <section id="search-flights" class="bg-white -mt-20 md:-mt-16 relative z-20 max-w-4xl mx-auto rounded-xl shadow-2xl p-6 md:p-10">
+            <h2 class="text-2xl font-bold text-center mb-6">Search Flights</h2>
+            <form id="flight-search-form" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 items-end">
+                <div class="flex flex-col">
+  <label for="from" class="font-semibold mb-2">From</label>
+  <select id="from" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+    <option value="" disabled selected>Select departure city</option>
+  </select>
+</div>
+
+<!-- To City Dropdown -->
+<div class="flex flex-col">
+  <label for="to" class="font-semibold mb-2">To</label>
+  <select id="to" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+    <option value="" disabled selected>Select destination city</option>
+  </select>
+</div>
+                <!-- Departure Date -->
+                <div class="flex flex-col">
+                    <label for="departure-date" class="font-semibold mb-2">Departure Date</label>
+                    <input type="date" id="departure-date" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <!-- Passengers & Search Button -->
+                <div class="flex flex-col lg:flex-row lg:items-end lg:space-x-4 lg:col-span-2 lg:col-start-2 xl:col-span-1">
+                    <button type="submit" id="search-button" class="w-full lg:w-auto mt-4 lg:mt-0 bg-blue-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-blue-700 btn-hover flex items-center justify-center">
+                        <span id="search-text">Search Flights</span>
+                        <span id="search-spinner" class="ml-2 hidden">
+                            <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Search Results Section (Initially Hidden) -->
+        <section id="search-results" class="bg-gray-50 hidden-section py-8">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center mb-12">Available Flights</h2>
+                <div id="flight-listings" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <div id="loading" class="col-span-full text-center py-10 hidden">
+                        <div class="inline-block animate-spin rounded-full h-10 w-10 border-t-2 border-b-2 border-blue-600"></div>
+                        <p class="mt-4 text-gray-600">Searching for flights...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Booking Confirmation Section (Initially Hidden) -->
+        <section id="booking-confirmation" class="py-20 bg-white hidden-section">
+            <div class="container mx-auto px-6 max-w-2xl bg-white rounded-xl shadow-2xl p-8 text-center">
+                <h2 class="text-3xl font-bold text-blue-600 mb-6">Booking Confirmed!</h2>
+                <p class="text-lg text-gray-700 mb-4">Thank you for booking with SkyWings. Your flight details are below:</p>
+                <div class="text-left space-y-3 text-gray-800">
+                    <p><span class="font-semibold">Passenger Name:</span> <span id="confirm-name"></span></p>
+                    <p><span class="font-semibold">Seat Number:</span> <span id="confirm-seat"></span></p>
+                    <p><span class="font-semibold">From:</span> <span id="confirm-from"></span></p>
+                    <p><span class="font-semibold">To:</span> <span id="confirm-to"></span></p>
+                    <p><span class="font-semibold">Departure Date:</span> <span id="confirm-date"></span></p>
+                    <p><span class="font-semibold">Email:</span> <span id="confirm-email"></span></p>
+                    <p class="mt-6 text-blue-600 font-medium">"We wish you a pleasant journey!"</p>
+                </div>
+                <button id="confirm-booking" class="mt-4 bg-green-600 text-white py-2 px-4 rounded">
+    Confirm Booking
+</button>
+
+                <button id="back-to-home" class="mt-8 bg-blue-600 text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-blue-700 btn-hover">Back to Home</button>
+            </div>
+        </section>
+
+        <!-- Tourist Destinations Section -->
+        <section class="py-20 bg-gray-50" id="tourist-destinations">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center mb-12">Popular Tourist Destinations</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <!-- Destination Card 1 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow-lg card-hover">
+                        <img src="mumbai.jpg" alt="GateWay of INDIA" class="w-full h-56 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Mumbai, India</h3>
+                            <p class="text-gray-600">Mumbai – The City of Dreams, Where Heritage Meets the Queen’s Necklace.</p>
+                        </div>
+                    </div>
+                    <!-- Destination Card 2 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow-lg card-hover">
+                        <img src="delhi.jpg" alt="India Gate" class="w-full h-56 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">Delhi, India</h3>
+                            <p class="text-gray-600">Delhi—the City of Djinns, Where Timeless Heritage Meets Majestic Monuments.</p>
+                        </div>
+                    </div>
+                    <!-- Destination Card 3 -->
+                    <div class="bg-white rounded-xl overflow-hidden shadow-lg card-hover">
+                        <img src="kashmir.webp" alt="Nature of kashmir" class="w-full h-56 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2">kashmir, India</h3>
+                            <p class="text-gray-600">Kashmir – The Land of Heavenly Valleys, Where Golden Meadows Embrace Snow‑capped Peaks.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SkyWings Safety Services Section -->
+        <section class="py-20 bg-white" id="safety-services">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center mb-12">Your Safety is Our Priority</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+                    <!-- Safety Feature 1 -->
+                    <div class="flex flex-col items-center">
+                        <div class="bg-blue-100 rounded-full p-5 mb-4">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/54d061d1-2245-4020-af97-1135cc8c9995.png" alt="Cleanliness Icon" class="rounded-full">
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Enhanced Cleaning</h3>
+                        <p class="text-gray-600">Our aircraft are thoroughly sanitized before every flight using hospital-grade disinfectants.</p>
+                    </div>
+                    <!-- Safety Feature 2 -->
+                    <div class="flex flex-col items-center">
+                        <div class="bg-green-100 rounded-full p-5 mb-4">
+                             <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/3ab0d7d9-db6d-4949-9083-000738c708cc.png" alt="Air Filtration Icon" class="rounded-full">
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Advanced Air Filtration</h3>
+                        <p class="text-gray-600">Equipped with HEPA filters that remove 99.9% of airborne particles, ensuring fresh cabin air.</p>
+                    </div>
+                    <!-- Safety Feature 3 -->
+                    <div class="flex flex-col items-center">
+                        <div class="bg-red-100 rounded-full p-5 mb-4">
+                            <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/16e116e6-5e91-49a2-8fc1-20f261ec4757.png" alt="Health Check Icon" class="rounded-full">
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Health & Wellness</h3>
+                        <p class="text-gray-600">We provide health kits and follow strict protocols to ensure the well-being of passengers and crew.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+      
+    
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 SkyWings. All rights reserved.</p>
+        </div>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>

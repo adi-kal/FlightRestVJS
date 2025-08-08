@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <div class="container">
+    <h1>✈️ Admin Dashboard</h1>
+
+    <!-- Add Flight Form -->
+    <div class="card" id="addFlightSec">
+      <h2>Add New Flight</h2>
+      <form id="addFlightForm">
+        <input type="text" placeholder="Flight No" id="flightNo" required>
+        <input type="text" placeholder="Flight Name" id="flightName" required>
+        <input type="number" placeholder="Capacity" id="capacity" required>
+        <select id="fromCity">
+  <option value="">Select From</option>
+</select>
+
+<select id="toCity">
+  <option value="">Select To</option>
+</select>
+
+        <input type="date" placeholder="Departure Date" id="departureDate" required>
+        <input type="time" placeholder="Departure Time" id="departureTime" required>
+        <input type="date" placeholder="Arrival Date" id="arrivalDate" required>
+        <input type="time" placeholder="Arrival Time" id="arrivalTime" required>
+        <input type="number" placeholder="Price (INR)" id="price" required>
+        <button type="submit">Add Flight</button>
+      </form>
+    </div>
+
+    <!-- Add City -->
+    <div class="card" id="addCitySec">
+      <h2>Add New City</h2>
+      <form id="addCityForm">
+        <input type="text" placeholder="City Name" id="cityName" required>
+        <button type="submit">Add City</button>
+      </form>
+    </div>
+
+    <!-- Delete User -->
+    <div class="card" id="delUserSec">
+      <h2>Delete User</h2>
+      <form id="deleteUserForm">
+        <input type="email" placeholder="User Email" id="deleteUserEmail" required>
+        <button type="submit">Delete User</button>
+      </form>
+    </div>
+
+    <!-- Booked Flights Table -->
+    <div class="card" id="bookedFlightSec">
+      <h2>📋 Booked Flights</h2>
+     <table id="bookedFlightsTable" class="styled-table">
+  <thead>
+    <tr>
+      <th>Flight ID</th>
+      <th>Flight Name</th>
+      <th>From</th>
+      <th>To</th>
+      <th>Bookings</th>
+      <th>Departure</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+    </div>
+
+    <!-- Users Table -->
+    <section class="card" id="memSec">
+      <h2>👥 Booked Users</h2>
+      <table id="bookedUsersTable" class="styled-table">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Username</th>
+      <th>Flight ID</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+    </section>
+  </div>
+<button id="logoutBtn" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Logout</button>
+  <script src="./admin.js"></script>
+</body>
+</html>
